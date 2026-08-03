@@ -39,20 +39,43 @@ Swagger UI is available at:
 http://localhost:8000/docs
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
-app/
-  api/
-  core/
-  models/
-  services/
-  utils/
-tests/
-  fixtures/
-docs/
+Learning-Recommendation-Engine/
+├── app/
+│   ├── api/                      # API routes and endpoint definitions
+│   ├── core/                     # Application configuration and shared utilities
+│   ├── models/                   # Pydantic request and response models
+│   ├── services/                 # Business logic and recommendation services
+│   ├── utils/                    # Helper functions and reusable utilities
+│   ├── __init__.py
+│   ├── config.py                 # Core configuration handling
+│   └── main.py                   # FastAPI application entry point
+├── demo/
+│   └── sample_requests.http      # Sample HTTP requests for testing endpoints
+├── docs/                         # Project documentation
+├── tests/                        # Unit and integration tests
+│   ├── fixtures/                 # Test fixtures and shared data
+│   ├── __init__.py
+│   ├── test_api.py
+│   ├── test_classifier.py
+│   ├── test_config.py
+│   ├── test_edge_cases_integration.py
+│   ├── test_explanation_generator.py
+│   ├── test_feature_extractor.py
+│   ├── test_message_generator.py
+│   ├── test_recommendation_engine.py
+│   ├── test_recommender.py
+│   ├── test_scorer.py
+│   └── test_validation.py
+├── .gitignore
+├── COPYRIGHT.md
+├── Dockerfile                    # Docker image configuration
+├── pyproject.toml                # Project metadata and tooling configuration
+├── requirements.txt              # Python dependencies
+└── README.md                     # Project documentation
 ```
-
 ## Development Commands
 
 ```bash
