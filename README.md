@@ -1,16 +1,10 @@
-# LearnPath AI
+# Learning Recommendation Engine
 
-LearnPath AI is the backend foundation for a stateless FastAPI microservice that will generate explainable personalized learning recommendations. This Phase 1 scaffold intentionally contains no recommendation business logic and no `/recommend` endpoint implementation.
+A modular recommendation engine built with **FastAPI** that delivers personalized learning suggestions based on user preferences, skills, and learning objectives.
 
-## Phase 1 Scope
+This project focuses on building a production-ready backend architecture for recommendation systems, emphasizing clean software design, maintainability, testing, and scalability. The current implementation establishes the service foundation, API structure, configuration management, validation, logging, and development tooling, providing a solid base for future recommendation algorithms.
 
-- FastAPI application factory and entry point
-- Centralized configuration constants
-- Startup configuration validation
-- Logging setup
-- Package and module structure
-- Pytest, Black, isort, Ruff, and coverage configuration
-- Docker runtime definition
+> **Project Status:** Backend infrastructure and project foundation are complete. Recommendation logic and ranking algorithms will be introduced in upcoming phases.
 
 ## Quickstart
 
