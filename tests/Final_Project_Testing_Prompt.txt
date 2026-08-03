@@ -1,0 +1,44 @@
+{
+  "student_id": "123456789",
+  "date": "2026-08-03",
+  "topic_accuracy": {
+    "Arrays": 90,
+    "Sliding Window": 35,
+    "Graphs": 40,
+    "Dynamic Programming": 30
+  },
+  "coding_attempts": [
+    {
+      "topic": "Sliding Window",
+      "problem": "Maximum Sum Subarray",
+      "attempts": 3,
+      "result": "incorrect"
+    },
+    {
+      "topic": "Graphs",
+      "problem": "BFS Traversal",
+      "attempts": 2,
+      "result": "incorrect"
+    }
+  ],
+  "mcq_results": {
+    "Arrays": {
+      "correct": 9,
+      "total": 10
+    },
+    "Graphs": {
+      "correct": 4,
+      "total": 10
+    },
+    "Dynamic Programming": {
+      "correct": 3,
+      "total": 10
+    }
+  },
+  "average_solving_time": {
+    "Arrays": "Low",
+    "Sliding Window": "High",
+    "Graphs": "High",
+    "Dynamic Programming": "High"
+  }
+}
