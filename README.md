@@ -14,6 +14,16 @@ This project focuses on building a production-ready backend architecture for rec
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 </p>
+
+## ⚡ Key Features
+
+| Category | Feature & Description |
+| :--- | :--- |
+| **Core** | **🚀 FastAPI Backend** — Modular, scalable architecture following clean code principles. |
+| **Config** | **⚙️ Centralized Settings** — Environment-based validation powered by Pydantic. |
+| **Quality** | **🧪 Testing & Tooling** — Pytest suite, Ruff, Black, and `isort` integration. |
+| **Ops** | **🐳 Dockerized** — Containerized setup for seamless deployment & local dev. |
+| **Docs** | **📚 Auto Documentation** — Interactive Swagger UI & ReDoc endpoints. |
 ## Quickstart
 
 ```bash
