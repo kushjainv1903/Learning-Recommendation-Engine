@@ -18,6 +18,7 @@ router = APIRouter()
     response_model=RecommendationResponse,
     responses={
         400: {"model": ErrorResponse, "description": "Malformed JSON"},
+        413: {"model": ErrorResponse, "description": "Payload too large"},
         415: {"model": ErrorResponse, "description": "Unsupported media type"},
         422: {"model": ErrorResponse, "description": "Validation failed"},
         500: {"model": ErrorResponse, "description": "Unexpected server error"},

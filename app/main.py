@@ -260,7 +260,10 @@ def _validate_content_type(request: Request) -> JSONResponse | None:
         )
     content_type = request.headers.get("content-type")
     if content_type is None:
-        return None
+        return JSONResponse(
+            status_code=415,
+            content={"success": False, "error": UNSUPPORTED_MEDIA_TYPE_ERROR},
+        )
     normalized_type = content_type.split(";", maxsplit=1)[0].strip().lower()
     if normalized_type in JSON_CONTENT_TYPES:
         return None

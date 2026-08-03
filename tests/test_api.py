@@ -102,6 +102,9 @@ def test_openapi_schema_documents_recommend_endpoint() -> None:
     assert schema["paths"]["/recommend"]["post"]["summary"] == (
         "Generate learning recommendations"
     )
+    assert {"200", "400", "413", "415", "422", "500"} <= set(
+        schema["paths"]["/recommend"]["post"]["responses"]
+    )
 
 
 def test_swagger_docs_are_available() -> None:
@@ -281,6 +284,27 @@ def test_unsupported_media_type_returns_json_error() -> None:
         "/recommend",
         content="plain text",
         headers={"content-type": "text/plain"},
+    )
+
+    assert response.status_code == 415
+    assert response.json() == {
+        "success": False,
+        "error": "Unsupported media type",
+    }
+
+
+def test_missing_content_type_with_body_returns_json_error() -> None:
+    """Verify body requests without content type are rejected.
+
+    Returns:
+        None.
+
+    Raises:
+        AssertionError: If missing content type is accepted.
+    """
+    response = client.post(
+        "/recommend",
+        content='{"student_id":"student_001"}',
     )
 
     assert response.status_code == 415
