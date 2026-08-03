@@ -1,0 +1,5 @@
+# Phase 1 runtime smoke check.
+# Recommendation API examples are added after the /recommend contract is implemented.
+
+GET http://localhost:8000/docs
+

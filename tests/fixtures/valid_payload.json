@@ -1,0 +1,41 @@
+{
+  "student_id": "student_001",
+  "date": "2026-08-02",
+  "topic_accuracy": {
+    "Arrays": 92,
+    "Sliding Window": 35,
+    "Graphs": 42,
+    "Dynamic Programming": 28
+  },
+  "coding_attempts": [
+    {
+      "topic": "Sliding Window",
+      "problem": "Longest Substring",
+      "attempts": 3,
+      "result": "incorrect"
+    },
+    {
+      "topic": "Graphs",
+      "problem": "Graph BFS",
+      "attempts": 2,
+      "result": "incorrect"
+    }
+  ],
+  "mcq_results": {
+    "Arrays": {
+      "correct": 9,
+      "total": 10
+    },
+    "Graphs": {
+      "correct": 8,
+      "total": 10
+    }
+  },
+  "average_solving_time": {
+    "Arrays": "Low",
+    "Sliding Window": "High",
+    "Graphs": "High",
+    "Dynamic Programming": "Medium"
+  }
+}
+

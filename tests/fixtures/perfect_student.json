@@ -1,0 +1,17 @@
+{
+  "student_id": "student_002",
+  "date": "2026-08-02",
+  "topic_accuracy": {
+    "Arrays": 95,
+    "Graphs": 90,
+    "DP": 91
+  },
+  "coding_attempts": [],
+  "mcq_results": {},
+  "average_solving_time": {
+    "Arrays": "Low",
+    "Graphs": "Low",
+    "DP": "Low"
+  }
+}
+
