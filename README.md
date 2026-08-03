@@ -4,8 +4,16 @@ A modular recommendation engine built with **FastAPI** that delivers personalize
 
 This project focuses on building a production-ready backend architecture for recommendation systems, emphasizing clean software design, maintainability, testing, and scalability. The current implementation establishes the service foundation, API structure, configuration management, validation, logging, and development tooling, providing a solid base for future recommendation algorithms.
 
-> **Project Status:** Backend infrastructure and project foundation are complete. Recommendation logic and ranking algorithms will be introduced in upcoming phases.
+<p align="center">
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Pytest](https://img.shields.io/badge/Tested_with-Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![Ruff](https://img.shields.io/badge/Lint-Ruff-D7FF64?style=for-the-badge)
+![Black](https://img.shields.io/badge/Code_Style-Black-000000?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+</p>
 ## Quickstart
 
 ```bash
