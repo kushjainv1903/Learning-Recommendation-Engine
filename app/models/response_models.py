@@ -1,8 +1,30 @@
 """Pydantic response models for consistent API contracts."""
 
+from typing import Annotated, Literal
+
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.config import (
+    MAX_EXPLANATION_LENGTH,
+    MAX_MESSAGE_LENGTH,
+    MAX_RECOMMENDATIONS,
+    MAX_TOPIC_NAME_LENGTH,
+    MIN_RECOMMENDATIONS,
+    MIN_TOPIC_NAME_LENGTH,
+    NORMALIZED_SCORE_MAX,
+    NORMALIZED_SCORE_MIN,
+)
 from app.core.constants import ClassificationLabel, RecommendationType
+
+TopicName = Annotated[
+    str,
+    Field(min_length=MIN_TOPIC_NAME_LENGTH, max_length=MAX_TOPIC_NAME_LENGTH),
+]
+NormalizedScore = Annotated[
+    float,
+    Field(ge=NORMALIZED_SCORE_MIN, le=NORMALIZED_SCORE_MAX),
+]
+NonNegativeCount = Annotated[int, Field(ge=0)]
 
 
 class StrictResponseModel(BaseModel):
@@ -48,9 +70,25 @@ class ErrorResponse(StrictResponseModel):
         False
     """
 
-    success: bool
+    success: Literal[False]
     error: str
     details: list[ErrorDetail] = Field(default_factory=list)
+
+
+class TopicClassification(StrictResponseModel):
+    """Represent one topic classification result.
+
+    Attributes:
+        topic: Topic name.
+        classification: Classification label assigned to the topic.
+
+    Example:
+        >>> TopicClassification(topic="Graphs", classification="Weak").classification
+        <ClassificationLabel.WEAK: 'Weak'>
+    """
+
+    topic: TopicName
+    classification: ClassificationLabel
 
 
 class PracticePlan(StrictResponseModel):
@@ -66,9 +104,9 @@ class PracticePlan(StrictResponseModel):
         3
     """
 
-    easy: int
-    medium: int
-    hard: int
+    easy: NonNegativeCount
+    medium: NonNegativeCount
+    hard: NonNegativeCount
 
 
 class FeatureSummary(StrictResponseModel):
@@ -88,8 +126,8 @@ class FeatureSummary(StrictResponseModel):
         5
     """
 
-    overall_accuracy: float
-    overall_failed_attempts: int
+    overall_accuracy: NormalizedScore
+    overall_failed_attempts: NonNegativeCount
     average_speed: str
 
 
@@ -119,12 +157,15 @@ class RecommendationItem(StrictResponseModel):
         'Graphs'
     """
 
-    topic: str
-    priority: int
-    priority_score: float
+    topic: TopicName
+    priority: Annotated[
+        int,
+        Field(ge=MIN_RECOMMENDATIONS, le=MAX_RECOMMENDATIONS),
+    ]
+    priority_score: NormalizedScore
     recommendation_type: RecommendationType
     action: str
-    reason: str
+    reason: Annotated[str, Field(max_length=MAX_EXPLANATION_LENGTH)]
     practice_plan: PracticePlan
 
 
@@ -159,11 +200,11 @@ class RecommendationResponse(StrictResponseModel):
         True
     """
 
-    success: bool
+    success: Literal[True]
     student_id: str
     generated_at: str
     feature_summary: FeatureSummary
     topic_classification: dict[str, ClassificationLabel]
     recommendations: list[RecommendationItem]
-    strengths: list[str]
-    tomorrows_focus_message: str
+    strengths: list[TopicName]
+    tomorrows_focus_message: Annotated[str, Field(max_length=MAX_MESSAGE_LENGTH)]
