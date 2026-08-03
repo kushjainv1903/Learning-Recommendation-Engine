@@ -126,7 +126,7 @@ ISO_DATE_PATTERN = r"^\d{4}-\d{2}-\d{2}$"
 
 SUCCESS_MESSAGE = "Recommendations generated successfully"
 VALIDATION_ERROR = "Validation failed"
-UNKNOWN_ERROR = "Unexpected server error"
+UNKNOWN_ERROR = "Unexpected server error."
 INVALID_JSON_ERROR = "Invalid JSON payload"
 METHOD_NOT_ALLOWED_ERROR = "Method not allowed"
 UNSUPPORTED_MEDIA_TYPE_ERROR = "Unsupported media type"

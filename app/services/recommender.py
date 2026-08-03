@@ -7,10 +7,12 @@ from app.config import (
     CRITICAL,
     CRITICAL_PRACTICE,
     DEFAULT_RECOMMENDATIONS,
+    CRITICAL_FAILURE_LIMIT,
     GOOD_CODING_SUCCESS_THRESHOLD,
     GOOD_FAILURE_LIMIT,
     HIGH_MCQ_THRESHOLD,
     HIGH_SPEED_SCORE_THRESHOLD,
+    STRONG_THRESHOLD,
     LOW_CODING_SUCCESS_THRESHOLD,
     LOW_MCQ_THRESHOLD,
     MASTERED,
@@ -120,7 +122,7 @@ def _select_recommendation_topics(
         if _is_actionable_recommendation(scored_topic)
     )
     if actionable_topics:
-        recommendation_limit = min(DEFAULT_RECOMMENDATIONS, MAX_RECOMMENDATIONS)
+        recommendation_limit = _recommendation_limit(actionable_topics)
         return actionable_topics[:recommendation_limit]
 
     fallback_topic = _select_strength_fallback(ranked_topics)
@@ -135,6 +137,23 @@ def _is_actionable_recommendation(scored_topic: ScoredTopic) -> bool:
     return (
         select_recommendation_type(scored_topic)
         is not RecommendationType.MAINTAIN_STRENGTH
+    )
+
+
+def _recommendation_limit(
+    actionable_topics: tuple[ScoredTopic, ...],
+) -> int:
+    if _all_topics_are_critical(actionable_topics):
+        return DEFAULT_RECOMMENDATIONS
+    if len(actionable_topics) > MAX_RECOMMENDATIONS:
+        return MAX_RECOMMENDATIONS
+    return min(DEFAULT_RECOMMENDATIONS, MAX_RECOMMENDATIONS)
+
+
+def _all_topics_are_critical(scored_topics: tuple[ScoredTopic, ...]) -> bool:
+    return all(
+        scored_topic.classification is ClassificationLabel.CRITICAL
+        for scored_topic in scored_topics
     )
 
 
@@ -193,12 +212,17 @@ def _needs_fundamental_revision(scored_topic: ScoredTopic) -> bool:
 
 
 def _has_implementation_gap(features: TopicFeatures) -> bool:
-    return (
+    repeated_high_accuracy_failures = (
+        features.accuracy >= STRONG_THRESHOLD
+        and features.failed_attempts >= CRITICAL_FAILURE_LIMIT
+    )
+    measured_implementation_gap = (
         features.mcq_accuracy is not None
         and features.coding_success_rate is not None
         and features.mcq_accuracy >= HIGH_MCQ_THRESHOLD
         and features.coding_success_rate < LOW_CODING_SUCCESS_THRESHOLD
     )
+    return repeated_high_accuracy_failures or measured_implementation_gap
 
 
 def _has_theory_gap(features: TopicFeatures) -> bool:

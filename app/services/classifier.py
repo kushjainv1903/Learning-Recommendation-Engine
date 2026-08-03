@@ -87,7 +87,10 @@ def classify_topics(
 def _is_critical(features: TopicFeatures) -> bool:
     return (
         features.accuracy < WEAK_THRESHOLD
-        or features.failed_attempts >= CRITICAL_FAILURE_LIMIT
+        or (
+            features.accuracy < STRONG_THRESHOLD
+            and features.failed_attempts >= CRITICAL_FAILURE_LIMIT
+        )
     )
 
 

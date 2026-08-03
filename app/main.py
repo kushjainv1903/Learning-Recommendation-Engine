@@ -132,7 +132,7 @@ def _register_exception_handlers(application: FastAPI) -> None:
         logger.error(
             "Unexpected error for request path %s",
             request.url.path,
-            exc_info=exc,
+            exc_info=True,
         )
         return JSONResponse(
             status_code=500,

@@ -68,8 +68,8 @@ def test_classify_topic_uses_configured_accuracy_boundaries(
     assert classify_topic(make_features(accuracy)) is expected
 
 
-def test_repeated_failures_make_topic_critical() -> None:
-    """Verify critical failure threshold overrides high accuracy.
+def test_repeated_failures_make_non_strong_topic_critical() -> None:
+    """Verify critical failure threshold overrides non-strong accuracy.
 
     Returns:
         None.
@@ -77,8 +77,22 @@ def test_repeated_failures_make_topic_critical() -> None:
     Raises:
         AssertionError: If repeated failures do not produce Critical.
     """
-    assert classify_topic(make_features(88.0, failed_attempts=3)) is (
+    assert classify_topic(make_features(74.0, failed_attempts=3)) is (
         ClassificationLabel.CRITICAL
+    )
+
+
+def test_high_accuracy_repeated_failures_remain_strong() -> None:
+    """Verify high accuracy with repeated failures follows edge-case rules.
+
+    Returns:
+        None.
+
+    Raises:
+        AssertionError: If high-accuracy repeated failures become Critical.
+    """
+    assert classify_topic(make_features(88.0, failed_attempts=3)) is (
+        ClassificationLabel.STRONG
     )
 
 
