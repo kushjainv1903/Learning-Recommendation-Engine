@@ -3,11 +3,16 @@
 from app.config import RESPONSE_TIMESTAMP_SUFFIX, TIME_SCORE
 from app.core.constants import ClassificationLabel
 from app.models.request_models import RecommendationRequest
-from app.models.response_models import FeatureSummary, RecommendationResponse
+from app.models.response_models import (
+    FeatureSummary,
+    RecommendationItem,
+    RecommendationResponse,
+)
 from app.services.classifier import classify_topics
+from app.services.explanation_generator import generate_reason
 from app.services.feature_extractor import TopicFeatures, extract_topic_features
 from app.services.message_generator import generate_tomorrows_focus_message
-from app.services.recommender import generate_recommendations
+from app.services.recommender import RecommendationDraft, generate_recommendations
 from app.services.scorer import rank_topics, score_topics
 
 
@@ -33,7 +38,9 @@ def generate_learning_recommendations(
     classifications = classify_topics(features)
     scored_topics = score_topics(features, classifications)
     ranked_topics = rank_topics(scored_topics)
-    recommendations = generate_recommendations(ranked_topics)
+    recommendations = build_recommendation_items(
+        generate_recommendations(ranked_topics)
+    )
     strengths = identify_strengths(classifications)
 
     return RecommendationResponse(
@@ -49,6 +56,41 @@ def generate_learning_recommendations(
             strengths,
             request.date,
         ),
+    )
+
+
+def build_recommendation_items(
+    drafts: tuple[RecommendationDraft, ...],
+) -> tuple[RecommendationItem, ...]:
+    """Attach explanation text to recommendation drafts.
+
+    Args:
+        drafts: Recommendation drafts generated from ranked scored topics.
+
+    Returns:
+        Complete response recommendation items.
+
+    Raises:
+        pydantic.ValidationError: If a generated item violates the response
+            model contract.
+
+    Example:
+        >>> build_recommendation_items(())
+        ()
+    """
+    return tuple(_build_recommendation_item(draft) for draft in drafts)
+
+
+def _build_recommendation_item(draft: RecommendationDraft) -> RecommendationItem:
+    features = draft.scored_topic.features
+    return RecommendationItem(
+        topic=features.topic,
+        priority=draft.priority,
+        priority_score=draft.scored_topic.priority_score,
+        recommendation_type=draft.recommendation_type,
+        action=draft.action,
+        reason=generate_reason(draft.recommendation_type, features),
+        practice_plan=draft.practice_plan,
     )
 
 

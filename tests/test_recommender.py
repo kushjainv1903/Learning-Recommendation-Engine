@@ -146,20 +146,20 @@ def test_speed_practice_selected_for_strong_high_time_topic() -> None:
     assert select_recommendation_type(scored_topic) is RecommendationType.SPEED_PRACTICE
 
 
-def test_generate_recommendations_includes_required_fields() -> None:
-    """Verify generated recommendations include action, priority, reason, plan.
+def test_generate_recommendations_includes_required_draft_fields() -> None:
+    """Verify generated recommendation drafts include action, priority, and plan.
 
     Returns:
         None.
 
     Raises:
-        AssertionError: If required recommendation fields are absent.
+        AssertionError: If required recommendation draft fields are absent.
     """
     recommendations = generate_recommendations((make_scored_topic(),))
 
     assert recommendations[0].action
     assert recommendations[0].priority == 1
-    assert recommendations[0].reason
+    assert recommendations[0].scored_topic.features.topic == "Graphs"
     assert recommendations[0].practice_plan.easy == 3
     assert recommendations[0].practice_plan.medium == 3
 

@@ -1,5 +1,7 @@
 """Recommendation generation service module."""
 
+from dataclasses import dataclass
+
 from app.config import (
     ACTION_TEMPLATES,
     CRITICAL,
@@ -23,23 +25,45 @@ from app.config import (
     WEAK_PRACTICE,
 )
 from app.core.constants import ClassificationLabel, RecommendationType
-from app.models.response_models import PracticePlan, RecommendationItem
-from app.services.explanation_generator import generate_reason
+from app.models.response_models import PracticePlan
 from app.services.feature_extractor import TopicFeatures
 from app.services.scorer import ScoredTopic
 
 
+@dataclass(frozen=True, slots=True)
+class RecommendationDraft:
+    """Recommendation details before explanation generation.
+
+    Attributes:
+        scored_topic: Ranked scored topic used to build the recommendation.
+        priority: One-based recommendation priority.
+        recommendation_type: Selected recommendation category.
+        action: Student-facing action.
+        practice_plan: Recommended practice workload.
+
+    Example:
+        >>> isinstance(RecommendationDraft, object)
+        True
+    """
+
+    scored_topic: ScoredTopic
+    priority: int
+    recommendation_type: RecommendationType
+    action: str
+    practice_plan: PracticePlan
+
+
 def generate_recommendations(
     ranked_topics: tuple[ScoredTopic, ...],
-) -> tuple[RecommendationItem, ...]:
+) -> tuple[RecommendationDraft, ...]:
     """Generate ranked recommendations from scored topics.
 
     Args:
         ranked_topics: Deterministically ranked scored topics.
 
     Returns:
-        Tuple of recommendation items, each with action, priority, reason, and
-        practice plan.
+        Tuple of recommendation drafts, each with action, priority, type, and
+        practice plan. Explanation text is added by the orchestrator.
 
     Raises:
         KeyError: If a configured action template is missing.
@@ -134,15 +158,13 @@ def _select_strength_fallback(
 def _build_recommendation(
     scored_topic: ScoredTopic,
     priority: int,
-) -> RecommendationItem:
+) -> RecommendationDraft:
     recommendation_type = select_recommendation_type(scored_topic)
-    return RecommendationItem(
-        topic=scored_topic.features.topic,
+    return RecommendationDraft(
+        scored_topic=scored_topic,
         priority=priority,
-        priority_score=scored_topic.priority_score,
         recommendation_type=recommendation_type,
         action=_build_action(recommendation_type, scored_topic.features.topic),
-        reason=generate_reason(recommendation_type, scored_topic.features),
         practice_plan=_build_practice_plan(scored_topic.classification),
     )
 
