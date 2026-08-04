@@ -21,30 +21,7 @@ The **Learning Recommendation Engine** is an intelligent RESTful API built with 
 ## ⚙️ How It Works (Pipeline Workflow)
 
 Every request sent to the engine goes through an automated 8-stage analysis pipeline:
-```mermaid
-graph TD
-    Req[Request] --> S1[1. Validate]
-    S1 --> S2[2. Normalize]
-    S2 --> S3[3. Feature Engineering]
-    S3 --> S4[4. Topic Classifier]
-    S4 --> S5[5. Priority Scoring]
-    S5 --> S6[6. Action Items]
-    S6 --> S7[7. Practice Plan]
-    S7 --> S8[8. Output]
-    S8 --> Resp[Response]
-
-    %% Styling
-    style Req fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px
-    style Resp fill:#efebe9,stroke:#7d6608,stroke-width:2px
-    style S1 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S2 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S3 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S4 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S5 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S6 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S7 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-    style S8 fill:#e8f8f5,stroke:#117a65,stroke-width:2px
-```
+<img src="diagrams/API%20workflow.png" alt="Pipeline Workflow" width ="500">
 ---
 
 ## 📡 Endpoints
