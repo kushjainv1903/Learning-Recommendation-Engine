@@ -1,31 +1,6 @@
-
-tally · current session
-61%
-≈4.3 sonnet msgs
-resets in 4h 32m
-weekly · all models
-5% · Thu 17:30
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Readme · MD
 <div align="center">
-# 🎯 LearnPath AI — Learning Recommendation Engine
+ 
+# 🎯Learning Recommendation Engine
  
 **An explainable, rule-driven FastAPI service that turns raw student practice data into personalized, prioritized study plans.**
  
@@ -38,9 +13,10 @@ Readme · MD
 [![Black](https://img.shields.io/badge/Code_Style-Black-000000?style=for-the-badge)](https://black.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
  
-[Quick Start](#-quick-start) • [How It Works](#-how-it-works) • [API](#-api-reference) • [Architecture](#-architecture) • [Testing](#-testing) • [Docs](#-documentation)
+
  
 </div>
+
 ---
  
 ## 📖 Overview
@@ -72,6 +48,7 @@ Every topic is classified into a mastery tier, every recommendation carries a hu
 | **Docs** | Auto-generated Swagger UI & ReDoc, plus hand-written architecture references in `Docs/` |
  
 ---
+
  
 ## 🚀 Quick Start
  
@@ -98,14 +75,8 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
  
-The API is now live at `http://127.0.0.1:8000`, with interactive docs at `/docs` (Swagger UI) and `/redoc` (ReDoc).
+The API is now live at `http://127.0.0.1:8000`, with interactive docs at `/docs` (Swagger UI).
  
-### Or run it with Docker
- 
-```bash
-docker build -t learnpath-ai .
-docker run -p 8000:8000 learnpath-ai
-```
  
 📘 Full setup, troubleshooting, and platform-specific notes live in **[Docs/Installation.md](Docs/Installation.md)**.
  
@@ -116,7 +87,7 @@ docker run -p 8000:8000 learnpath-ai
 Every request flows through an 8-stage pipeline before a response is returned:
  
 <div align="center">
-<img src="Docs/diagrams/API workflow.png" alt="8-stage recommendation pipeline" width="360">
+<img src="Docs/diagrams/API workflow.png" alt="8-stage recommendation pipeline" width="650">
 </div>
 | Stage | Responsibility |
 | :---: | :--- |
@@ -360,8 +331,8 @@ Contributions, issues, and feature requests are welcome.
 ## 📄 License
  
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
-
-
+ 
 
  
 </div>
+ 
