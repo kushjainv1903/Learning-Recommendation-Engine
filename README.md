@@ -48,53 +48,18 @@ Every topic is classified into a mastery tier, every recommendation carries a hu
 | **Docs** | Auto-generated Swagger UI & ReDoc, plus hand-written architecture references in `Docs/` |
  
 ---
+ 
 
-<<<<<<< HEAD
- 
-## 🚀 Quick Start
- 
-### Prerequisites
- 
-- Python **3.11+**
-- Git
-- pip
-### Setup
- 
-```bash
-# 1. Clone the repository
-git clone https://github.com/kushjainv1903/Learning-Recommendation-Engine.git
-cd Learning-Recommendation-Engine
- 
-# 2. Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\Activate.ps1
- 
-# 3. Install dependencies
-pip install -r requirements.txt
- 
-# 4. Run the server
-uvicorn app.main:app --reload
-```
- 
-The API is now live at `http://127.0.0.1:8000`, with interactive docs at `/docs` (Swagger UI).
- 
- 
-📘 Full setup, troubleshooting, and platform-specific notes live in **[Docs/Installation.md](Docs/Installation.md)**.
- 
----
-=======
->>>>>>> f62f755 (Readme)
  
 ## 🧠 How It Works
  
 Every request flows through an 8-stage pipeline before a response is returned:
  
 <div align="center">
-<<<<<<< HEAD
+
 <img src="Docs/diagrams/API workflow.png" alt="8-stage recommendation pipeline" width="650">
-=======
+
 <img src="Docs\diagrams\API workflow.png" alt="Pipeline Workflow" style= "width:650px; height: auto;">
->>>>>>> f62f755 (Readme)
 </div>
 
 #### 🔄 Recommendation Pipeline Workflow
@@ -269,17 +234,7 @@ Contributions, issues, and feature requests are welcome.
 4. Make sure `pytest` passes locally
 5. Open a pull request with a clear description of the change
 ---
- 
-<<<<<<< HEAD
-## 📄 License
- 
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
- 
 
  
 </div>
- 
-=======
-</div>
- 
->>>>>>> f62f755 (Readme)
+
