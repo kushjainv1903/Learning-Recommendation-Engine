@@ -21,7 +21,7 @@ The **Learning Recommendation Engine** is an intelligent RESTful API built with 
 ## ⚙️ How It Works (Pipeline Workflow)
 
 Every request sent to the engine goes through an automated 8-stage analysis pipeline:
-<img src="diagrams/API%20workflow.png" alt="Pipeline Workflow" width ="500">
+<img src="diagrams/API%20workflow.png" alt="Pipeline Workflow" style= "width:160 px ; height: auto;">
 ---
 
 ## 📡 Endpoints
