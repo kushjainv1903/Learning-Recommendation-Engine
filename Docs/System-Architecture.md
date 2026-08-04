@@ -1,3 +1,2 @@
-\# System Architecture
-!\[system Architecture Diagram](./Architecture.png)
-
+# System Architecture
+![system Architecture Diagram](./Architecture.png)
