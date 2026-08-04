@@ -1,8 +1,8 @@
 import os
 from PIL import Image
 
-# The paths to your specific diagrams
 target_images = [
+    "Docs/diagrams/API workflow.png",
     "Docs/diagrams/request lifecycle.png",
     "Docs/diagrams/Project Structure.png"
 ]
