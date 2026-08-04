@@ -1,5 +1,5 @@
 <div align="center">
- 
+
 # 🎯Learning Recommendation Engine
  
 **An explainable, rule-driven FastAPI service that turns raw student practice data into personalized, prioritized study plans.**
@@ -49,6 +49,7 @@ Every topic is classified into a mastery tier, every recommendation carries a hu
  
 ---
 
+<<<<<<< HEAD
  
 ## 🚀 Quick Start
  
@@ -81,25 +82,41 @@ The API is now live at `http://127.0.0.1:8000`, with interactive docs at `/docs`
 📘 Full setup, troubleshooting, and platform-specific notes live in **[Docs/Installation.md](Docs/Installation.md)**.
  
 ---
+=======
+>>>>>>> f62f755 (Readme)
  
 ## 🧠 How It Works
  
 Every request flows through an 8-stage pipeline before a response is returned:
  
 <div align="center">
+<<<<<<< HEAD
 <img src="Docs/diagrams/API workflow.png" alt="8-stage recommendation pipeline" width="650">
+=======
+<img src="Docs\diagrams\API workflow.png" alt="Pipeline Workflow" style= "width:650px; height: auto;">
+>>>>>>> f62f755 (Readme)
 </div>
-| Stage | Responsibility |
-| :---: | :--- |
-| 1. **Validate** | Reject malformed or out-of-range payloads before any processing begins |
-| 2. **Normalize** | Standardize raw input into a consistent internal shape |
-| 3. **Feature Engineering** | Derive per-topic accuracy, failure counts, and speed signals |
-| 4. **Topic Classifier** | Assign each topic a mastery tier using threshold rules |
-| 5. **Priority Scoring** | Compute a weighted urgency score per weak topic |
-| 6. **Action Items** | Generate the specific action and human-readable reason per topic |
-| 7. **Practice Plan** | Build an easy/medium/hard problem-count plan for each focus area |
-| 8. **Output** | Assemble the final, contract-compliant JSON response |
- 
+
+#### 🔄 Recommendation Pipeline Workflow
+
+
+The engine executes every incoming request through an 8-stage automated analytical pipeline:
+
+| Stage | Name | Key Responsibility |
+| :---: | :--- | :--- |
+| **01** | **Validate** | Rejects malformed JSON, invalid data types, or out-of-range payloads before processing. |
+| **02** | **Normalize** | Standardizes raw input structure into a unified, consistent internal data model. |
+| **03** | **Feature Engineering** | Derives aggregated per-topic accuracy, total failure counts, and solving speed signals. |
+| **04** | **Topic Classifier** | Categorizes each topic into a performance mastery tier based on defined threshold rules. |
+| **05** | **Priority Scoring** | Computes a weighted urgency score for identified weak and critical topics. |
+| **06** | **Action Items** | Formulates specific action recommendations and human-readable reasoning per topic. |
+| **07** | **Practice Plan** | Builds a structured `Easy` / `Medium` / `Hard` problem-count breakdown for each target area. |
+| **08** | **Output Assembly** | Constructs and validates the final contract-compliant JSON response payload. |
+
+---
+
+> ℹ️ **Note:** If validation fails at **Stage 01**, the pipeline halts immediately and returns a structured `422 Unprocessable Entity` response without executing subsequent stages.
+ ---
 ### Topic classification tiers
  
 | Tier | Meaning |
@@ -123,158 +140,43 @@ The priority score behind each recommendation blends four signals:
  
 ---
  
-## 📡 API Reference
- 
-### `POST /recommend`
- 
-Generates personalized recommendations and a daily practice plan from a student's performance snapshot.
- 
-**Headers**
- 
-| Key | Value |
-| :--- | :--- |
-| `Content-Type` | `application/json` |
- 
-**Example request**
- 
-```bash
-curl -X POST 'http://127.0.0.1:8000/recommend' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "student_id": "23FE10CAI00398",
-    "date": "2026-08-03",
-    "topic_accuracy": {
-      "Arrays": 90,
-      "Sliding Window": 35
-    },
-    "coding_attempts": [],
-    "mcq_results": {},
-    "average_solving_time": {}
-  }'
-```
- 
-**Example response**
- 
-```json
-{
-  "success": true,
-  "student_id": "23FE10CAI00398",
-  "generated_at": "2026-08-03T00:00:00Z",
-  "feature_summary": {
-    "overall_accuracy": 48.75,
-    "overall_failed_attempts": 5,
-    "average_speed": "High"
-  },
-  "topic_classification": {
-    "Arrays": "Mastered",
-    "Sliding Window": "Critical"
-  },
-  "recommendations": [
-    {
-      "topic": "Sliding Window",
-      "priority": 1,
-      "priority_score": 62,
-      "recommendation_type": "Revise Fundamentals",
-      "action": "Revise Sliding Window fundamentals",
-      "reason": "Sliding Window accuracy is 35% with 3 failed coding attempts, indicating a conceptual gap.",
-      "practice_plan": { "easy": 5, "medium": 3, "hard": 1 }
-    }
-  ],
-  "strengths": ["Arrays"],
-  "tomorrows_focus_message": "Tomorrow's Focus: Great work on Arrays today. Focus on: Revise Sliding Window fundamentals. Consistency beats intensity."
-}
-```
- 
-**Status codes**
- 
-| Code | Meaning |
-| :---: | :--- |
-| `200` | Success — recommendations generated |
-| `400` | Malformed JSON |
-| `413` | Payload exceeds the maximum allowed size |
-| `415` | Missing or incorrect `Content-Type` header |
-| `422` | Schema validation failed (type mismatch, out-of-range value, etc.) |
-| `500` | Unexpected server-side error |
- 
-📘 Full request/response schemas and field-level rules: **[Docs/API.md](Docs/API.md)**
- 
----
- 
 ## 🏛️ Architecture
  
 The service follows a strictly layered architecture — each layer has one job, and no layer reaches past its boundary.
  
 <div align="center">
-<img src="Docs/diagrams/Architecture.png" alt="System architecture" width="380">
+<img src="Docs/diagrams/Architecture.png" alt="System architecture" width="180">
 </div>
-| Layer | Location | Responsibility |
+
+### 🏗️ Architecture & Codebase Structure
+
+The application follows a modular, layer-separated architecture to maintain a clear separation of concerns across the recommendation pipeline:
+
+| Layer | Module / Location | Core Responsibility |
 | :--- | :--- | :--- |
-| **API Layer** | [`app/api/`](app/api/routes.py) | Request ingestion, routing, response serialization |
-| **Validation Layer** | [`app/models/`](app/models/) | Pydantic schemas, type safety, early rejection |
-| **Feature Engineering** | [`app/services/feature_extractor.py`](app/services/feature_extractor.py) | Accuracy/attempt/speed metric extraction |
-| **Classification** | [`app/services/classifier.py`](app/services/classifier.py) | Topic mastery tier assignment |
-| **Scoring** | [`app/services/scorer.py`](app/services/scorer.py) | Weighted priority score calculation |
-| **Recommendation Engine** | [`app/services/recommendation_engine.py`](app/services/recommendation_engine.py) | Orchestrates the full pipeline end to end |
-| **Explanation & Messaging** | [`app/services/explanation_generator.py`](app/services/explanation_generator.py), [`app/services/message_generator.py`](app/services/message_generator.py) | Human-readable reasons and the "Tomorrow's Focus" message |
-| **Response Layer** | [`app/models/response_models.py`](app/models/response_models.py) | Final API contract enforcement |
+| 🌐 **API Layer** | [`app/api/routes.py`](app/api/routes.py) | Ingests incoming HTTP requests, handles routing, and serializes responses. |
+| 🛡️ **Validation Layer** | [`app/models/`](app/models/) | Defines Pydantic schemas, enforces type safety, and handles early rejection. |
+| ⚙️ **Feature Engineering** | [`app/services/feature_extractor.py`](app/services/feature_extractor.py) | Aggregates accuracy metrics, attempt counts, and speed indicators. |
+| 🏷️ **Classification** | [`app/services/classifier.py`](app/services/classifier.py) | Maps performance metrics into topic mastery tiers (`Mastered`, `Strong`, `Weak`, `Critical`). |
+| 📊 **Scoring** | [`app/services/scorer.py`](app/services/scorer.py) | Calculates weighted recommendation urgency and priority scores. |
+| 🧠 **Recommendation Engine** | [`app/services/recommendation_engine.py`](app/services/recommendation_engine.py) | Orchestrates the end-to-end analytical pipeline. |
+| 💬 **Explanation & Messaging** | [`app/services/explanation_generator.py`](app/services/explanation_generator.py)<br>[`app/services/message_generator.py`](app/services/message_generator.py) | Formulates human-readable action rationale and builds the "Tomorrow's Focus" daily message. |
+| 📦 **Response Layer** | [`app/models/response_models.py`](app/models/response_models.py) | Enforces final response data structure against the API contract. |
+
+---
+
+> 💡 **Design Pattern:** Services in `app/services/` remain decoupled from API routing logic, making them easily testable and reusable across background workers or alternate interface layers.
  
 <details>
 <summary><strong>More diagrams</strong> — recommendation pipeline & request lifecycle</summary>
 <br>
+
 <div align="center">
 <img src="Docs/diagrams/recommendation pipeline.png" alt="Recommendation pipeline" width="500"><br><br>
 <img src="Docs/diagrams/request lifecycle.png" alt="Request lifecycle" width="700">
 </div>
 </details>
 📘 Full architectural breakdown: **[Docs/Architecture.md](Docs/Architecture.md)**
- 
----
- 
-## 📁 Project Structure
- 
-<div align="center">
-<img src="Docs/diagrams/Project Structure.png" alt="Project structure" width="700">
-</div>
-```text
-Learning-Recommendation-Engine/
-├── app/
-│   ├── api/                       # Routing & endpoint definitions
-│   │   └── routes.py
-│   ├── core/                      # Shared constants & exception types
-│   │   ├── constants.py
-│   │   └── exceptions.py
-│   ├── models/                    # Pydantic request/response contracts
-│   │   ├── request_models.py
-│   │   └── response_models.py
-│   ├── services/                  # Business logic
-│   │   ├── feature_extractor.py
-│   │   ├── classifier.py
-│   │   ├── scorer.py
-│   │   ├── recommender.py
-│   │   ├── recommendation_engine.py
-│   │   ├── explanation_generator.py
-│   │   └── message_generator.py
-│   ├── utils/
-│   │   └── logger.py
-│   ├── config.py                  # Thresholds, weights, centralized settings
-│   └── main.py                    # FastAPI app entry point
-├── demo/
-│   └── sample_requests.http       # Ready-to-run sample HTTP requests
-├── Docs/
-│   ├── API.md
-│   ├── Architecture.md
-│   ├── Installation.md
-│   ├── diagrams/                  # Mermaid-exported architecture diagrams
-│   └── Screenshots/                # UI & terminal walkthrough screenshots
-├── tests/
-│   ├── fixtures/                  # Shared test payloads
-│   └── test_*.py                  # Unit, integration & edge-case suites
-├── Dockerfile
-├── pyproject.toml                 # black / isort / ruff / pytest config
-├── requirements.txt
-└── LICENSE
-```
  
 ---
  
@@ -305,6 +207,46 @@ isort --check .
 <img src="Docs/Screenshots/response-URL-generated.png" alt="Generated response" width="420">
 <img src="Docs/Screenshots/server-terminal-success.png" alt="Server terminal output" width="420">
 </div>
+
+---
+
+# 🛠️ Installation & Setup
+
+## Prerequisites
+
+* Python 3.10 or higher
+* pip (Python package manager)
+* Git
+
+---
+
+### Step 1: Clone the Repository
+
+```bash
+git clone [https://github.com/your-username/Learning-Recommendation-Engine.git](https://github.com/your-username/Learning-Recommendation-Engine.git)
+cd Learning-Recommendation-Engine
+```
+
+### Step 2: Create Virtual Environment
+```Bash
+python -m .venv venv
+source venv/bin/activate  # On Windows: .\.venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
+```Bash
+pip install -r requirements.txt #These are not yet added
+```
+
+
+### Step 4: Run the Application
+```Bash
+uvicorn app.main:app --reload
+```
+The application will be available at http://127.0.0.1:8000/docs
+
+📘 Full setup, troubleshooting, and platform-specific notes live in **[Docs/Installation.md](Docs/Installation.md)**.
+ 
 ---
  
 ## 📚 Documentation
@@ -328,6 +270,7 @@ Contributions, issues, and feature requests are welcome.
 5. Open a pull request with a clear description of the change
 ---
  
+<<<<<<< HEAD
 ## 📄 License
  
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
@@ -336,3 +279,7 @@ Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
  
 </div>
  
+=======
+</div>
+ 
+>>>>>>> f62f755 (Readme)

@@ -23,7 +23,7 @@ The **Learning Recommendation Engine** is an intelligent RESTful API built with 
 Every request sent to the engine goes through an automated 8-stage analysis pipeline:
 
 
-<img src="diagrams/API%20workflow.png" alt="Pipeline Workflow" style= "width:650px; height: auto;">
+<img src="diagrams\API workflow.png" alt="Pipeline Workflow" style= "width:650px; height: auto;">
 
 ---
 
