@@ -21,7 +21,7 @@
  
 ## 📖 Overview
  
-**LearnPath AI** analyzes a student's daily practice signals — topic-wise accuracy, failed coding attempts, MCQ performance, and solving speed — and turns them into a transparent, rule-based diagnosis of *where the student stands* and *what they should do next*.
+**Learning Recommendation Engine** analyzes a student's daily practice signals — topic-wise accuracy, failed coding attempts, MCQ performance, and solving speed — and turns them into a transparent, rule-based diagnosis of *where the student stands* and *what they should do next*.
  
 Every topic is classified into a mastery tier, every recommendation carries a human-readable reason, and every response ships with a ready-to-use daily practice plan. No black-box scoring — every number the API returns can be traced back to a documented rule.
  
